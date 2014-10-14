@@ -1,11 +1,3 @@
-/*
-THIS IS THE UNIT TEST!!!!!!!!!!!!!!!!!!!!!!!!
-I'M SO NERVOUS!!!!!!!!!!!!!!!!!!!!!
-I WILL START REVIEW FOR THE DAMN TEST RIGHT NOW!!!!!!!!!
-I WON'T BE DISTRACTED ANYMORE!!!!!!!!!!
-i hope so
-        ------Disppointed Andrew
-*/
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
@@ -50,14 +42,14 @@ public class Play extends JPanel implements ActionListener
 
     private void initGame() 
     {
-        dot_count = 3;
+        dot_count = 50;
         for(int z = 0; z<=dot_count; z++)
         {
             x[z] = 10;
             y[z] = 10;
         }
         Food();
-        timer = new Timer(150, this);
+        timer = new Timer(50, this);
         timer.start();
     }
     
@@ -83,11 +75,11 @@ public class Play extends JPanel implements ActionListener
     
     private void Draw(Graphics g) 
     {
-            g.drawImage(body, food_x, food_y, this);
             for(int z=1; z<=dot_count; z++)
             {
                 g.drawImage(ball, x[z], y[z], this);
             }
+            g.drawImage(body, food_x, food_y, this);
             g.drawImage(head, x[0], y[0], this);
     }
 
@@ -166,9 +158,79 @@ public class Play extends JPanel implements ActionListener
 {
     	getFood();	//done
     	getOut();	//done
+    	stupidAI();
     	move();		//done
         repaint();
 }
+    //1,¡û 2,¡ú 3,¡ü 4,¡ý
+	public void stupidAI()
+	{
+		if(food_x < x[0])
+		{
+			AIdir(1);
+		}else if(food_x > x[0])
+		{
+			AIdir(2);
+		}else if(food_y < y[0])
+		{
+			AIdir(3);
+		}else AIdir(4);
+	}
+	
+	public void AIdir(int aidir)
+	{
+		int counting = 0;
+		do{
+			if(aidir == 1)
+			{
+				if(!checktouch(x[0]-block_size,y[0]) && (x[1] != x[0]-block_size))
+				{
+					dis();
+					left = true;
+				}else aidir = 2;
+				counting++;
+			}
+			if(aidir == 2)
+			{
+				if(!checktouch(x[0]+block_size,y[0]) && (x[1] != x[0]+block_size))
+				{
+					dis();
+					right = true;
+				}else aidir = 3;
+				counting++;
+			}
+			if(aidir == 3)
+			{
+				if(!checktouch(x[0],y[0]-block_size) && (y[1] != y[0]-block_size))
+				{
+					dis();
+					up = true;
+				}else aidir = 4;
+				counting++;
+			}
+			if(aidir == 4)
+			{
+				if(!checktouch(x[0],y[0]+block_size) && (y[1] != y[0]+block_size))
+				{
+					dis();
+					down = true;
+				}else aidir = 1;
+				counting++;
+			}
+		}while(counting<=4);
+	}
+	
+	public boolean checktouch(int t_x, int t_y)
+	{
+		for(int z = 1; z <= dot_count; z++)
+		{
+			if(x[z]==t_x && y[z]==t_y)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
     
     public void dis()
     {
