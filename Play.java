@@ -166,7 +166,6 @@ public class Play extends JPanel implements ActionListener
     	}
         repaint();
 }
-    //1,¡û 2,¡ú 3,¡ü 4,¡ý
 	public void stupidAI()
 	{
 		if(food_x < x[0])
