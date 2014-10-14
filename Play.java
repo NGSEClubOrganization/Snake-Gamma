@@ -24,6 +24,7 @@ public class Play extends JPanel implements ActionListener
     private int block_size = 10;
     private int WIDTH = max_block*block_size;
     private int HEIGHT = max_block*block_size;
+    private boolean ifAI = true;
     
     
     
@@ -159,10 +160,13 @@ public class Play extends JPanel implements ActionListener
     	getFood();	//done
     	getOut();	//done
     	move();		//done
-    	stupidAI();
+    	if(ifAI)
+    	{
+    		stupidAI();
+    	}
         repaint();
 }
-    //1,ก๛ 2,ก๚ 3,กü 4,กý
+    //1,ยกรป 2,ยกรบ 3,ยกรผ 4,ยกรฝ
 	public void stupidAI()
 	{
 		if(food_x < x[0])
