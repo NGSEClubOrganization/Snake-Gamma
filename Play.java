@@ -49,7 +49,7 @@ public class Play extends JPanel implements ActionListener
             y[z] = 10;
         }
         Food();
-        timer = new Timer(50, this);
+        timer = new Timer(5, this);
         timer.start();
     }
     
@@ -158,8 +158,8 @@ public class Play extends JPanel implements ActionListener
 {
     	getFood();	//done
     	getOut();	//done
-    	stupidAI();
     	move();		//done
+    	stupidAI();
         repaint();
 }
     //1,¡û 2,¡ú 3,¡ü 4,¡ý
@@ -175,6 +175,12 @@ public class Play extends JPanel implements ActionListener
 		{
 			AIdir(3);
 		}else AIdir(4);
+		
+		if((food_x == x[0]) && (food_y > y[0]) && !down)
+		{
+			//debug
+			AIdir(3);
+		}
 	}
 	
 	public void AIdir(int aidir)
@@ -189,8 +195,7 @@ public class Play extends JPanel implements ActionListener
 					left = true;
 				}else aidir = 2;
 				counting++;
-			}
-			if(aidir == 2)
+			}else if(aidir == 2)
 			{
 				if(!checktouch(x[0]+block_size,y[0]) && (x[1] != x[0]+block_size))
 				{
@@ -198,8 +203,7 @@ public class Play extends JPanel implements ActionListener
 					right = true;
 				}else aidir = 3;
 				counting++;
-			}
-			if(aidir == 3)
+			}else if(aidir == 3)
 			{
 				if(!checktouch(x[0],y[0]-block_size) && (y[1] != y[0]-block_size))
 				{
@@ -207,8 +211,7 @@ public class Play extends JPanel implements ActionListener
 					up = true;
 				}else aidir = 4;
 				counting++;
-			}
-			if(aidir == 4)
+			}else if(aidir == 4)
 			{
 				if(!checktouch(x[0],y[0]+block_size) && (y[1] != y[0]+block_size))
 				{
